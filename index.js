@@ -37,7 +37,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("The server side is open");
+  res.send("The server side is open in");
 });
 app.listen(port, () => {
   console.log(`The manufacturer web is running ${port}`);
