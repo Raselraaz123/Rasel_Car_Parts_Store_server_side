@@ -24,6 +24,9 @@ async function run() {
     const productCollection = client
       .db("Rasel_Car_Parts_Store")
       .collection("product");
+    const reviewCollection = client
+      .db("Rasel_Car_Parts_Store")
+      .collection("reviews");
 
     app.get("/product", async (req, res) => {
       const query = {};
@@ -31,6 +34,14 @@ async function run() {
       const products = await cursor.toArray();
       res.send(products);
     });
+    app.get('/review', async (req, res) =>{
+      const query = {};
+      const cursor = reviewCollection.find(query);
+      const reviews = await cursor.toArray();
+      res.send(reviews);
+
+})
+
   } finally {
   }
 }
