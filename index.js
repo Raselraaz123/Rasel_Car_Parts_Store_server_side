@@ -103,15 +103,25 @@ async function run() {
           { email: email },
           process.env.ACCESS_TOKEN,
           { expiresIn: "1h" }
-        );
+        );   
         res.send({ result, token });
       });
+    
+    
+    
+    
     // order api
-    app.get('/order', async (req, res) => {
+    app.get('/order',verifyJWT, async (req, res) => {
       const email = req.query.email;
-      const query = { email: email };
-      const orders = await orderCollection.find(query).toArray();
-      res.send(orders)
+      const decodedEmail = req.decoded.email;
+      if (email == decodedEmail) {
+         const query = { email: email };
+         const orders = await orderCollection.find(query).toArray();
+     return  res.send(orders);
+      }
+      else {
+        return res.status(403).send({ message: 'forbidden access' });
+     }
 })
 
 
