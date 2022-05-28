@@ -47,6 +47,9 @@ async function run() {
     const userCollection = client
       .db("Rasel_Car_Parts_Store")
       .collection("users");
+    const orderCollection = client
+      .db("Rasel_Car_Parts_Store")
+      .collection("order");
 
     app.get("/product", async (req, res) => {
       const query = {};
@@ -97,6 +100,14 @@ async function run() {
         );
         res.send({ result, token });
       });
+    
+    app.post('/order', async (req, res) => {
+      const order = req.body;
+      const result = await orderCollection.insertOne(order);
+      res.send(result);
+    })
+    
+    
   } finally {
   }
 }
